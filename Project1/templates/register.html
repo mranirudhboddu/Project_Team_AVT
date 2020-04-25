@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>REGISTER</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style media = "all">
+    body {
+      background-color:#d4e6c1;
+      background: url(https://29.dohabookfair.qa/wp-content/uploads/2018/11/Books.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height:100vh;
+      align-items: center;
+      float: left;
+    }
+    h1 {
+      padding-left: 0px;
+      font-size:50px;
+      color:#161f0c;
+      margin-left: 30px;
+      font-weight: 800;
+      padding-bottom: 40px;
+    }
+    .fr{
+      padding-top: 20px;
+      padding-left: 40px;
+      font-weight: 600;
+    }
+
+    
+
+ </style>
+</head>
+<body>
+
+<div style="align-items: left;"class="container">
+  <h1>Register here!</h1>
+  <form class="fr" action="{{url_for('register')}}" method="post">
+
+  <label for="fname">Username:</label>
+    <input type="text" id="username"  placeholder="Enter Username" name="username" size="30;"><br><br>
+  
+  <label for="password">Password:</label>
+    <input type="password" id="pwd" placeholder="Enter password" name="password" size="30;"><br><br>
+  <!-- <input type="submit" value="Register"> -->
+  <button  id="button" type="submit" class="btn btn-default">Register</button>
+  
+</form>
+  
+</div>
+
+</body>
+</html>
