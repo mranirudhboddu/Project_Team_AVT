@@ -1,0 +1,100 @@
+<!doctype html>
+
+{% block title %}
+    <h1>Results</h1>
+{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>result</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style media = "all">
+body 
+{  
+  background-color:#d4e6c1;
+  background: url(https://29.dohabookfair.qa/wp-content/uploads/2018/11/Books.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height:100vh;
+  align-items: center;
+  float: left;   
+  background-attachment: fixed;
+}     
+h1{
+      padding-left: 0px;
+      font-size:50px;
+      color:#161f0c;
+      margin-left: 30px;
+      font-weight: 800;
+      padding-bottom: 40px;
+      padding-top: 0px
+}
+h2{
+     padding-top: 5px;
+     padding-left: 40px;
+      font-size:50px;
+      color:#161f0c;
+      margin-left: 30px;
+      font-weight: 800;
+      padding-bottom: 40px;
+
+}
+h3{
+    padding-left: 0px;
+      font-size:20px;
+      color:#161f0c;
+      margin-left: 30px;
+      font-weight: 800;
+      padding-bottom: 0px;
+}
+.res{
+    
+    padding-left: 40px;
+    width: 100%;
+}
+.card-body{
+    
+    text-align: justify;
+    display: inline;
+}
+.card-footer{
+    color: black;
+}
+</style>    
+</head>
+<body>
+    <h2>Search Results</h3>
+
+
+<div class="container results-container">
+
+    
+    {% for book in books %}
+        <div class="res">
+            <div class="card-body">
+                <h3 class="card-title">Title : {{book['title']}}</h3>
+                <h3 class="card-text">Author : {{book['author']}}</h3>
+                <h3 class="card-text">Book   : {{book['year']}}</h3>
+                <h3 class="card-text">ISBN   : {{book['isbn']}}</h3>
+                <h3 class="line">----------------------------------------------------------</h3>
+            </div>
+            
+        </div>
+    {% endfor %}
+    <div class="card-footer">
+                <a href="{{url_for('login')}}" class="button">click here for login page</a>
+    </div>
+</div>
+
+</body>
+</html>
+
+{% endblock %}
