@@ -19,7 +19,7 @@ def main():
             db.session.add(book)
             print("Added books with isbn {isbn} and name {title}")
     print("here")
-    db.session.commit()
+    db.session.commit() 
 
 
 if __name__ == "_main_":
