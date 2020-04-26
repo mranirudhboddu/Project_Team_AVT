@@ -26,6 +26,6 @@ class User(Base):
     def __init__(self, username, password, user_created_on=None):
         self.username = username
         self.password = password
-        self.user_created_on = datetime.now()
-    def
+        self.user_created_on = datetime.now() 
+ 
     

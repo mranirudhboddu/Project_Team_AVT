@@ -11,22 +11,54 @@
 <style media = "all">   
 body 
 {  
-  background-color:#d4e6c1;
+  margin: 0;
+  padding: 0;
   background: url(https://29.dohabookfair.qa/wp-content/uploads/2018/11/Books.jpg);
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
-  height:100vh;
-  align-items: center;
-  float: left;  
+  height: 100vh;
+  width: 100%;
 }     
+.container{
+  float: left;
+}
+#menubar {
+            width: 100%;
+            /*background-color: #72c3c4;*/
+            height: 60px;
+            float: left;
+            padding-bottom: 20px;
+            /*padding-left: 40px;*/
+        }
+        
+#menu {
+    color:black;
+    list-style-type: none;
+    line-height: 40px;
+}
+
+#menu li {
+    display: inline-block;
+}
+
+#menu li a {
+    padding: 10px;
+    text-decoration: none;
+    color:black;
+    display: block;
+    font-weight: 800;
+}
+
+#menu li a:hover {
+    background-color: #425454;
+}
 h1{
-      padding-left: 0px;
+      padding-left: 20px;
       font-size:50px;
       color:#161f0c;
       margin-left: 30px;
       font-weight: 800;
-      padding-bottom: 40px;
+      padding-bottom: 30px;
 }
 .fr{
       padding-top: 0px;
@@ -41,19 +73,34 @@ h1{
 <body>    
   <div class="container">
 
-    <h1> Login</h1> <br><br> 
-    <form class="fr" action="{{url_for('login')}}" method="post">
+    <div>
+      <nav id="menubar">
+        <ul id="menu">
+            <li><a href="/">HOME</a></li>
+            <li><a href="{{url_for('register')}}">REGISTER</a></li>
+            <LI><a href="{{url_for('register')}}">LOG IN</a></LI>
+        </ul>
+      </nav>
+    </div>
 
-    <label>Username : </label>   
-    <input type="text" id="usr" placeholder="Enter username" name="username" size="30;"> <br><br>
+    <div>
+      <h1> Login</h1> <br><br> 
+      <form class="fr" action="{{url_for('login')}}" method="post">
 
-    <label>Password : </label>   
-    <input type="password" id="password" placeholder="Enter password" name="password" size="30;"> <br><br>
+        <label>Username : </label>   
+        <input type="text" id="usr" placeholder="Enter username" name="username" size="30;"> <br><br>
 
-    <button type="submit">Login</button>   
-    <input type="checkbox" checked="checked"> Remember me   
+        <label>Password : </label>   
+        <input type="password" id="password" placeholder="Enter password" name="password" size="30;"> <br><br>
+
+        <button type="submit">Login</button>   
+        <input type="checkbox" checked="checked"> Remember me 
+
+      </form> 
+    </div>
+     
        
-    </form>  
+     
 
   </div>     
 </body>     

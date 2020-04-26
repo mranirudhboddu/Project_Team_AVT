@@ -11,27 +11,46 @@
 <style media = "all">   
 body 
 {  
-  background-color:#d4e6c1;
+  margin: 0;
+  padding: 0;
   background: url(https://29.dohabookfair.qa/wp-content/uploads/2018/11/Books.jpg);
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
-  height:100vh;
-  /*align-items: center;*/
-  float: left;  
-}  
+  height: 100vh;
+  width: 100%;
+}     
 .container{
-    padding-top: 10px;
-    padding-left: 100px;
-}  
+  float: left;
+}
+#menubar {
+            width: 100%;
+            /*background-color: #72c3c4;*/
+            height: 60px;
+            float: left;
+            padding-bottom: 20px;
+            /*padding-left: 40px;*/
+        }
+        
+#menu {
+    color:black;
+    list-style-type: none;
+    line-height: 40px;
+}
 
-h1{
-      padding-left: 0px;
-      font-size:50px;
-      color:#161f0c;
-      margin-left: 30px;
-      font-weight: 800;
-      padding-bottom: 40px;
+#menu li {
+    display: inline-block;
+}
+
+#menu li a {
+    padding: 10px;
+    text-decoration: none;
+    color:black;
+    display: block;
+    font-weight: 800;
+}
+
+#menu li a:hover {
+    background-color: #425454;
 }
 .bt{
     padding-top: 20px;
@@ -51,6 +70,9 @@ h1{
   cursor: pointer;
   font-weight: 600;
 }
+.srch{
+  padding-top: 20px;
+}
 
      
   
@@ -58,15 +80,51 @@ h1{
 </head>    
 <body>    
   <div class="container">
-    <h1>Search for a book!</h1>   
-    <form action="/search" method="GET">
+
+    <div>
+      <nav id="menubar">
+        <ul id="menu">
+            <li><a href="#">HOME</a></li>
+            <li><a href="{{url_for('register')}}">REGISTER</a></li>
+            <LI><a href="{{url_for('login')}}">LOG IN</a></LI>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="srch">
+      <h1>Search for a book!</h1>   
+      
+
+                  <!-- <div>
+                    <form action="/radio">
+                        <p>Please to search</p>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="isbn" id="option1" value="option1" >
+                          <label class="form-check-label" for="inlineRadio1"> Search by ISBN </label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="book name" id="option2" value="option2" >
+                          <label class="form-check-label" for="inlineRadio2"> Search by TITLE </label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="Author" id="option3" value="option3" >
+                          <label class="form-check-label" for="inlineRadio3">Search by Author name</label>
+                        </div>
+                  </div> -->
+      </div>
+        
+      <br>
+      <form action="/search" method="GET">
         <div class="form-group">
             <input type="text"  name="book" autofocus aria-describedby="bookHelp" placeholder="ISBN, Title or Author" size="50;">
             <!-- <small id="bookHelp" class="form-text text-muted">Example: 0375508325, Cosmos or Carl Sagan</small> -->
         </div>
         <button class="btn btn-primary" type="submit">Search</button>
-
-    </form>
+      </form>   
+    </div>
+    
       
 
   </div>     
