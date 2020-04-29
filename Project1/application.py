@@ -3,6 +3,7 @@ import os
 from flask import Flask, session, redirect, render_template, request, jsonify, flash ,url_for
 from flask_session import Session
 from sqlalchemy import create_engine
+from flask_sqlalchemy import SQLAlchemy
 # from flask impor
 from wtforms import StringField, PasswordField, BooleanField
 from flask_wtf import FlaskForm
@@ -11,8 +12,9 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 # from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from models  import User
-from books import Book
+from models  import *
+from books import *
+from review import *
 
 app = Flask(__name__,template_folder="templates")
 
@@ -21,7 +23,7 @@ if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-# db.init_app(app)
+db.init_app(app)
 
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
@@ -63,6 +65,7 @@ def login():
         user = db.query(User).filter_by(username=name).first()
         if user:
             if check_password_hash(user.password,password):
+                session['username']=name
 
                 return render_template("search.html")
 
@@ -96,7 +99,37 @@ def search():
     books = rows.fetchall()
 
     return render_template("bookresult.html", books=books)
-#------------------------------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@app.route("/review/<isbn>", methods =['GET', 'POST'])
+def review(isbn):
+    if session.get("username") is None:
+        return redirect("/register")
+
+    # isbn = "0380795272"
+    book  = db.query(Book).filter_by(isbn = isbn).first()
+    rating = db.query(Review).filter_by(title=book.title).all()
+    # print("hello book name",book.isbn)
+    
+    # obj = db.query(User).get("Username")
+    Uname = session.get("username")
+    print(Uname) 
+    if request.method == "POST":
+        title = book.title
+        rating1 = request.form.get("rate")
+        review = request.form.get("comment")
+        temp = Review(title,Uname,rating1,review)
+        try:
+            db.add(temp)
+            db.commit() 
+            ratin = db.query(Review).filter_by(title=book.title).all()
+            return render_template("review.html",data = book, name = Uname, rating = ratin)
+        except:
+            db.rollback()
+            return render_template("review.html", data = book, name = "Already given", rating = rating)
+    else:
+        return render_template("review.html",data = book, name = Uname ,rating = rating)
+
+#-------------------------------------------------------------------------------------------------------------------------------------
 # @app.route('/radio',methods=['GET','POST'])
 
 # def route():

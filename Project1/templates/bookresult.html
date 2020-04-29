@@ -57,7 +57,7 @@ h1,th{
     text-align: center;
 }
 tbody{
-  background-color: #24423d;
+  background-color: #8bbbb1;
 }
 
         </style>
@@ -75,24 +75,26 @@ tbody{
       </nav>
     </div>
 
-    <h1> Here is the top search list </h1>
+    <h1> Here is the search list </h1>
     <table class="table">
         <thead class="thead-dark">
           <tr>
             <!-- <th scope="col">Serial.no</th> -->
-            <th scope="col">ISBN</th>
+            <!-- <th scope="col">ISBN</th> -->
+            <th scope="col">Results based on your search (Book Title, Author Name, ISBN)</th>
             <!-- <th scope="col">TITLE OF THE BOOK</th> -->
-            <th scope="col">AUTHOR</th>
-            <th scope="col">Details</th>
+            <!-- <th scope="col">AUTHOR</th> -->
+            <!-- <th scope="col">Details</th> -->
 
           </tr>
         </thead>
         <tbody>
             {% for book in books %}
-            <td>{{ book.isbn }}</td>
+            <!-- <td>{{ book.isbn }}</td> -->
             <!-- <td>{{ book.tittle}}</td> -->
-            <td>{{ book.author}}</td>
-            <td><a href="/" class="button">Book Details</a></td>
+            <td><a href="{{ url_for('review', isbn=book.isbn) }}" style="color:rgb(3, 61, 38);  font-weight: bold;">{{ book.title }}, {{ book.author }}, {{ book.isbn }}</a></td>
+            <!-- <td>{{ book.author}}</td> -->
+            <!-- <td><a href="/" class="button">Book Details</a></td> -->
             
         <tr>
             <!-- <th scope="row">{{record}}</th> -->
