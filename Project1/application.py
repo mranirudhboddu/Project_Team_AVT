@@ -11,10 +11,9 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 # from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-# from models  import User
-from models import *
+from models  import *
 from books import *
-# from books import Book
+from review import *
 
 app = Flask(__name__,template_folder="templates")
 
@@ -65,6 +64,7 @@ def login():
         user = db.query(User).filter_by(username=name).first()
         if user:
             if check_password_hash(user.password,password):
+                session['username']=name
 
                 return render_template("search.html")
 
@@ -98,22 +98,37 @@ def search():
     books = rows.fetchall()
 
     return render_template("bookresult.html", books=books)
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@app.route("/review/<isbn>", methods =['GET', 'POST'])
+def review(isbn):
+    if session.get("username") is None:
+        return redirect("/register")
 
+    # isbn = "0380795272"
+    book  = db.query(Book).filter_by(isbn = isbn).first()
+    rating = db.query(Review).filter_by(title=book.title).all()
+    # print("hello book name",book.isbn)
+    
+    # obj = db.query(User).get("Username")
+    Uname = session.get("username")
+    print(Uname) 
+    if request.method == "POST":
+        title = book.title
+        rating1 = request.form.get("rate")
+        review = request.form.get("comment")
+        temp = Review(title,Uname,rating1,review)
+        try:
+            db.add(temp)
+            db.commit() 
+            ratin = db.query(Review).filter_by(title=book.title).all()
+            return render_template("review.html",data = book, name = Uname, rating = ratin)
+        except:
+            db.rollback()
+            return render_template("review.html", data = book, name = "Already given", rating = rating)
+    else:
+        return render_template("review.html",data = book, name = Uname ,rating = rating)
 
-@app.route("/books/<isbn>/<title>")
-def book_details(isbn,title):
-    print(isbn, title)
-    book_data = Book.query.filter_by(isbn = isbn).first()
-    # reviews_list = Reviews.query.filter_by(book_isbn = isbn).all()
-    # rating = 0
-    # count = 0
-    # for each in reviews_list:
-    #     rating = rating + each.rating
-    #     count = count + 1
-    # avg_rating = rating//count
-    return render_template('book.html', book_data = book_data)
-
-#------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------
 # @app.route('/radio',methods=['GET','POST'])
 
 # def route():

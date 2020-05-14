@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html>
@@ -15,7 +16,8 @@
                 background-repeat: no-repeat;
                 height: 100vh;
                 width: 100%;
-            }    
+            }  
+            
         </style> 
     </head>
 
@@ -35,12 +37,14 @@
                                 <h4 style="color:black; font-family: 'Times New Roman', Times, serif; font-weight: bold;">ISBN : {{ book_data.isbn }}</h4>
                                 <h4 style="color:black; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Author : {{ book_data.author }}</h4>
                                 <h4 style="color:black; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Published Year : {{ book_data.year }}</h4>
+                                <div class="bt">
+                                    <a href="review.html" class="button">review</a>      
+                               </div>
                             </div>
                         </div>
            
                     </div>
                 </div>
-        
                 <!-- text column-->
                 <!-- <div class="col-7">
                     <div class="max-4">
