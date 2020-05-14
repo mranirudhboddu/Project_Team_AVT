@@ -1,8 +1,8 @@
-
 import os
 from flask import Flask, session, redirect, render_template, request, jsonify, flash ,url_for
 from flask_session import Session
 from sqlalchemy import create_engine
+from flask_sqlalchemy import SQLAlchemy
 # from flask impor
 from wtforms import StringField, PasswordField, BooleanField
 from flask_wtf import FlaskForm
@@ -11,8 +11,10 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 # from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from models  import User
-from books import Book
+# from models  import User
+from models import *
+from books import *
+# from books import Book
 
 app = Flask(__name__,template_folder="templates")
 
@@ -21,7 +23,7 @@ if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-# db.init_app(app)
+db.init_app(app)
 
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
@@ -96,6 +98,21 @@ def search():
     books = rows.fetchall()
 
     return render_template("bookresult.html", books=books)
+
+
+@app.route("/books/<isbn>/<title>")
+def book_details(isbn,title):
+    print(isbn, title)
+    book_data = Book.query.filter_by(isbn = isbn).first()
+    # reviews_list = Reviews.query.filter_by(book_isbn = isbn).all()
+    # rating = 0
+    # count = 0
+    # for each in reviews_list:
+    #     rating = rating + each.rating
+    #     count = count + 1
+    # avg_rating = rating//count
+    return render_template('book.html', book_data = book_data)
+
 #------------------------------------------------------------------------------------------------------------------------------------
 # @app.route('/radio',methods=['GET','POST'])
 
