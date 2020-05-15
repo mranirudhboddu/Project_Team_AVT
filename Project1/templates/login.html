@@ -53,7 +53,8 @@ body
     background-color: #425454;
 }
 h1{
-      padding-left: 20px;
+      padding top:40px;
+      padding-left:400px;
       font-size:50px;
       color:#161f0c;
       margin-left: 30px;
@@ -65,10 +66,45 @@ h1{
       padding-left: 40px;
       font-weight: 600;
     }
-
-     
   
 </style>   
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('#form').onsubmit = function() {
+        var email    = document.getElementById('username');
+        var password = document.getElementById('password');
+        var validEmail = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+        var validPassword = /(?=.\d)(?=.[a-z])(?=.*[A-Z]).{6,}/;
+        var lowerCaseLetters = /[a-z]/g;
+        var upperCaseLetters = /[A-Z]/g;
+        var numbers = /[0-9]/g;
+
+        if (!validEmail.test(email.value)) {
+          alert('Please provide a valid email address');
+          email.focus;
+          return false;
+           }
+
+        if (!password.value.match(lowerCaseLetters)) {
+          alert('Your password should have minimum one lowercase letter');
+          return false;
+        } 
+        else if (!password.value.match(upperCaseLetters)) {
+          alert('Your password should have minimum one Uppercase letter');
+          return false;
+        } 
+        
+        else if (!password.value.match(numbers)) {
+          alert('Your password should have minimum one number');
+          return false;
+        } 
+        else if (!password.value.length >= 6) {
+          alert('Your password should have minimum 6 letters');
+          return false;
+        }
+            };
+          });
+  </script>
 </head>    
 <body>    
   <div class="container">
@@ -78,25 +114,26 @@ h1{
         <ul id="menu">
             <li><a href="/">HOME</a></li>
             <li><a href="{{url_for('register')}}">REGISTER</a></li>
-            <LI><a href="{{url_for('register')}}">LOG IN</a></LI>
+            <LI><a href="{{url_for('login')}}">LOG IN</a></LI>
         </ul>
       </nav>
     </div>
 
     <div>
       <h1> Login</h1> <br><br> 
-      <form class="fr" action="{{url_for('login')}}" method="post">
-
-        <label>Username : </label>   
-        <input type="text" id="usr" placeholder="Enter username" name="username" size="30;"> <br><br>
-
-        <label>Password : </label>   
-        <input type="password" id="password" placeholder="Enter password" name="password" size="30;"> <br><br>
-
-        <button type="submit">Login</button>   
-        <input type="checkbox" checked="checked"> Remember me 
-
-      </form> 
+      <form id="form" action="{{url_for('login')}}" method="post" align="center" >
+              <label>Username:
+              <input id="username" name="username" autocomplete="off"  placeholder="username" type="text" >
+              </label>
+              <br>
+              <label>Password:
+              <input id="password" type="password" name="password"  placeholder="Enter Password"/>
+                </label>
+              <br>
+                    
+               <input type="submit" name="submit" value="Login" >
+              <!-- <input formaction="/auth" type="submit" name="Login" value="Login" > -->
+              </form> 
     </div>
      
        
